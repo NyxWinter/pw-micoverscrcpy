@@ -1,4 +1,4 @@
-# pw-micoverscrpy
+# pw-micoverscrcpy
 A very small and simple script that uses your phone as a microphone using scrcpy and pipewire 
 
 ## Dependencies
