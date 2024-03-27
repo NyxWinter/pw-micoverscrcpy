@@ -12,7 +12,7 @@ done
 # Kills scrcpy on exit
 cleanup() {
     echo "Killing..."
-    pkill .scrcpy-wrapped
+    pkill scrcpy
 }
 
 # Interrupts interrupts so it can kill scrcpy
@@ -72,7 +72,7 @@ sleep 1
 #Finds default sink with wpctl
 DEFAULTSINK=$(wpctl inspect @DEFAULT_SINK@ | awk 'NR<2 {print $2}' | sed 's/\,//')
 # Finds the ID of the scrcpy stream
-SCPSID=$(wpctl status | grep ".scrcpy-wrapped" | awk 'NR>1 {print $1}' | sed 's/\.//')
+SCPSID=$(wpctl status | grep "scrcpy" | awk 'NR>1 {print $1}' | sed 's/\.//')
 # Unlinks the source from your output device
 echo ""
 echo "scrcpy id: $SCPSID"
@@ -83,4 +83,4 @@ pw-link -d $SCPSID $DEFAULTSINK
 wpctl set-volume $SCPSID $volume
 
 # Starts a task that links the output of scrcpy to a source called "virtmic"
-pw-loopback --capture-props='node.target=.scrcpy-wrapped' --playback-props='media.class=Audio/Source node.name=virtmic node.description="VirtualMic"'
+pw-loopback --capture-props='node.target=scrcpy' --playback-props='media.class=Audio/Source node.name=virtmic node.description="VirtualMic"'
