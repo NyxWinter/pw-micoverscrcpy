@@ -2,7 +2,7 @@
 
 
 # Checks dependencies
-for cmd in wpctl scrcpy pw-link pw-loopback; do
+for cmd in wpctl scrcpy pw-link pw-loopback pidof; do
     if ! command -v $cmd &> /dev/null; then
         echo "Error: $cmd not found\!"
         exit 1
@@ -12,7 +12,7 @@ done
 # Kills scrcpy on exit
 cleanup() {
     echo "Killing..."
-    pkill scrcpy
+    kill -9 $(pidof scrcpy)
 }
 
 # Interrupts interrupts so it can kill scrcpy
